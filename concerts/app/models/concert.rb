@@ -1,6 +1,6 @@
 class Concert < ApplicationRecord
   has_many :tickets
-has_many :users,through: :tickets
+  has_many :users,through: :tickets
 
 
 def age_req
@@ -15,7 +15,7 @@ def showtime
   time.strftime('%m/%d/%Y at %I:%M %p')
 end
 
-def self.ratingscope(age)
+def self.agereqscope(age)
   where("min_age <=  ?", age)
 end
 
