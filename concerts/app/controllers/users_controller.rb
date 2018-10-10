@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       if @user.save
         flash[:success] = "Successfully Registered!"
         session[:user_id] = @user.id
-        redirect_to user_showings_path(@user)
+        redirect_to user_concerts_path(@user)
       else
         render :new
       end
