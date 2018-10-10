@@ -18,7 +18,7 @@ class ConcertsController < ApplicationController
   def buy_tickets
     user = User.find(session[:user_id])
     ticket = Ticket.new(user_id: session[:user_id], concert_id: params[:concert_id])
-    flash[:notice] = ticket.buyticket
+    flash[:notice] = ticket.purchaseticket
     flash[:success] = flash[:notice] if flash[:notice] == "Success"
     redirect_to user_concerts_path(user)
   end

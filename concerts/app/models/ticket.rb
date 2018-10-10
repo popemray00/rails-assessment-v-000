@@ -3,7 +3,7 @@ class Ticket < ApplicationRecord
   belongs_to :concert
 
 
-  def buy_ticket
+  def purchaseticket
     if (user.age >= concert.min_age) && (user.money >= concert.cost) && (!user.concerts.find {|c| c.showtime == concert.showtime})
       user.money = user.money - concert.cost
       user.save(validate: false)
