@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
 
   def home
-    if session[:user_id]
-      redirect_to user_concerts_path(User.find(session[:user_id]))
-   end
   end
 
   def new

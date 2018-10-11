@@ -1,4 +1,5 @@
 class ConcertsController < ApplicationController
+   skip_before_action :verify_authenticity_token
   def index
     @user = User.find(params[:user_id])
       if session[:user_id] == @user.id
@@ -37,4 +38,8 @@ class ConcertsController < ApplicationController
       end
       redirect_to user_concerts_path(user)
   end
+
+  def most_popular
+      @concert = Concert.find(Ticket.top)
+    end
 end

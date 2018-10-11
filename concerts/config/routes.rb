@@ -10,11 +10,13 @@ Rails.application.routes.draw do
 
   get '/logout', to: 'sessions#destroy'
 
-  post '/buyticket', to: 'concerts#buy_tickets'
+  post '/purchaseticket', to: 'concerts#buy_tickets'
 
   post '/refund', to: 'concerts#refund'
   resources :users, only: [:show, :new, :create] do
   resources :concerts, only: [:show, :index, :new]
   end
+
+  get '/most_popular', to: 'concerts#most_popular'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -17,4 +17,8 @@ class Ticket < ApplicationRecord
        "You already have a ticket for this concert."
     end
   end
+
+  def self.top
+      group(:concert_id).order('count(*) DESC').limit(1).pluck(:concert_id)[0]
+  end
 end

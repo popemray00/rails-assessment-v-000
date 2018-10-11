@@ -5,17 +5,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: auth[:info][:email], age: 17)
-
-    if @user
-      session[:user_id] = @user.id
-      redirect_to user_concerts_path(@user)
-    else
-    @user = User.new(email: auth[:info][:email], username: auth[:info][:name], age: 17)
-    @user.save(validate: false)
-    session[:user_id] = @user.id
-    redirect_to user_concerts_path(@user)
-    end
+    user = User.find_or_create_by(:uid => auth['uid']) do |user|
+   user.name = auth['info']['name']
+ end
+ session[:user_id] = user.try(:id)
   end
 
   def login
