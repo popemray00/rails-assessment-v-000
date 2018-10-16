@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :set_user
+
   def home
   end
 
@@ -18,9 +20,17 @@ class UsersController < ApplicationController
       end
    end
 
+   def show
+     @user = set_user
+   end
+
   private
 
   def user_params
     params.require(:user).permit(:username,:password,:email,:age, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find_by(id: params[:id])
   end
 end

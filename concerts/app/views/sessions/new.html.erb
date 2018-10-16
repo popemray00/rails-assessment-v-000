@@ -1,11 +1,26 @@
-Please Enter Your Information Below<br>
-<%=form_for :user do |f| %>
-<%=f.text_field :username, :placeholder => "Username"%><br>
-<%=f.password_field :password, :placeholder =>"Password"%><br>
-<%=f.submit "Log In"%><br>
-<%end%>
-<% if flash[:notice]  %>
-<%= flash[:notice] %>
-<% end %>
-Or<br>
-<%= link_to('Log in with Facebook!', '/auth/facebook/callback') %>
+
+<h2>Please Login!</h2>
+    <% if flash[:message] %>
+      <%= flash[:message] %>
+      <%end%>
+
+      <%= form_tag(sessions_path) do %>
+
+        <%= label_tag 'Username' %><br>
+        <%= text_field_tag :username %><br>
+
+
+        <%= label_tag 'Email' %><br>
+        <%= text_field_tag :email %><br>
+
+
+        <%= label_tag 'Password' %><br>
+        <%= password_field_tag :password %><br>
+
+        <%= submit_tag 'Login' %>
+    <%end%>
+
+    <br><br>
+
+    Or<br>
+    <%= link_to('Log in with Github!', '/auth/github') %>

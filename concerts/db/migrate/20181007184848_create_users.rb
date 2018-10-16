@@ -7,8 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
      t.integer :age
      t.integer :money, :default => 100
      t.integer :uid
-     t.string :image
-
+     t.string :user_id
       t.timestamps
     end
   end

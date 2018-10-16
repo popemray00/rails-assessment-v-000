@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_10_07_184848) do
     t.integer "age"
     t.integer "money", default: 100
     t.integer "uid"
-    t.string "image"
+    t.string "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -14,7 +14,7 @@
 </div><br>
   <%end%>
 <%end%>
-<%=link_to "Click Here To Buy Tickets", new_user_concert_path(@user)%><br><br>
+<%=link_to "Click Here To Buy Tickets", new_user_concert_path(:user_id, @user)%><br><br>
 
 <%= link_to "Most Popular Concert", most_popular_path(@user)%><br><br>
 
@@ -24,13 +24,4 @@
   <%= flash[:success] %></div>
   <% elsif flash[:notice]  %>
   <%= flash[:notice] %></div>
-<% end %>
-
-<% if session[:user_id] %>
-  <h1><%= @user.name %></h1>
-  <h2>Email: <%= @user.email %></h2>
-  <h2>Facebook UID: <%= @user.uid %></h2>
-  <img src="<%= @user.image %>">
-<% else %>
-  <%= link_to('Log in with Facebook!', '/auth/facebook') %>
 <% end %>
