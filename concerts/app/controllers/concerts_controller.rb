@@ -12,13 +12,14 @@ class ConcertsController < ApplicationController
 
 
   def new
+    @user = User.find_by(params[:user_id])
   end
 
 
   def buy_tickets
-    @user = User.find_by(session[:user_id])
-    ticket = Ticket.new(user_id: session[:user_id], concert_id: params[:concert_id])
-    flash[:notice] = ticket.purchaseticket
+    @user = User.find_by(params[:user_id])
+    ticket = Ticket.new(user_id: params[:user_id], concert_id: params[:concert_id])
+    flash[:notice] = ticket.purchaseticket(@user.id)
     flash[:success] = flash[:notice] if flash[:notice] == "Success"
     redirect_to user_concerts_path(@user)
   end
@@ -42,25 +43,4 @@ class ConcertsController < ApplicationController
       @concert = Concert.find(Ticket.top)
     end
 
-    private
-
-    #def concert_params
-    #    params.require(:concert).permit(:title, :min_age, :cost, :time, :user_id, :concert_id, :purchaseticket)
-    #end
-
-    def purchaseticket
-      if (user.age >= concert.min_age) && (user.money >= concert.cost) && (!user.concerts.find {|c| c.showtime == concert.showtime})
-        user.money = user.money - concert.cost
-        user.save(validate: false)
-        self.save
-        "Success"
-      elsif (user.age < concert.min_age)
-         "Sorry, you don't meet the minimum age to attend this show!"
-      elsif (user.money < concert.cost)
-         "Sorry, you don't have enough money to make this purchase"
-       elsif user.concerts.find {|c| c.showtime == concert.showtime}
-         "You already have a ticket for this concert."
-      end
-
-    end
 end

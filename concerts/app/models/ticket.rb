@@ -2,9 +2,9 @@ class Ticket < ApplicationRecord
   belongs_to :user
   belongs_to :concert
 
-  def purchaseticket
-    user = User.find_by(params[:user_id])
-    if (users.age >= concert.min_age) && (user.money >= concert.cost) && (!user.concerts.find {|c| c.showtime == concert.showtime})
+  def purchaseticket(user_id)
+    user = User.find(user_id)
+    if (user.age >= concert.min_age) && (user.money >= concert.cost) && (!user.concerts.find {|c| c.showtime == concert.showtime})
       user.money = user.money - concert.cost
       user.save(validate: false)
       self.save

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/auth/github/callback' => 'sessions#create'
+  get '/auth/:provider/callback' => 'sessions#create'
   root 'welcome#home'
 
   get '/login', to: 'sessions#new'
@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   post '/purchaseticket', to: 'concerts#buy_tickets'
 
   post '/refund', to: 'concerts#refund'
+
   resources :users, only: [:show, :new, :create] do
-  resources :concerts, only: [:show, :index, :new]
+    resources :concerts, only: [:show, :index, :new]
   end
 
   get '/most_popular', to: 'concerts#most_popular'
