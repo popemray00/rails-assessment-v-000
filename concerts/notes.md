@@ -9,3 +9,11 @@ def login
     render :new
   end
   end
+
+
+
+Cannot find age in github
+
+remove from sign in form
+
+add a scope to purchaseticket
