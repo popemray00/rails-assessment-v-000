@@ -5,7 +5,7 @@ class Ticket < ApplicationRecord
   def purchaseticket(user_id)
     if (user.age >= concert.min_age) && (user.money >= concert.cost) && (!user.concerts.find {|c| c.showtime == concert.showtime})
       user.money = user.money - concert.cost
-      user.save(validate: false)
+      user.save
       self.save
       "Success"
     elsif (user.age < concert.min_age)

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       @user.password = SecureRandom.hex
       @user.save
       session[:user_id] = @user.id
-      render 'concerts/index'
+      redirect_to user_concerts_path(@user)
     else
       @user = User.find_by(email: params[:email])
         if @user && @user.authenticate(params[:password])

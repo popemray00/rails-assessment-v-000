@@ -16,7 +16,7 @@
 <%end%>
 
 hello<%= @user.inspect %>
-<%=link_to "Click Here To Buy Tickets", new_user_concert_path(@user.id)%><br><br>
+<%=link_to "Click Here To Buy Tickets", new_user_concert_path(@user)%><br><br>
 
 <%= link_to "Most Popular Concert", most_popular_path(@user)%><br><br>
 
