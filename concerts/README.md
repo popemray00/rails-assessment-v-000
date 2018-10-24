@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the concert finder app, that lets users look at concerts coming up and allows them to buy tickets.
 
-Things you may want to cover:
+To start the app you must run 'cd concerts' then once in the directory run bundle install.
 
-* Ruby version
+After all is installed run rake db:migrate and rake db:seed this will create your tables as well as insert some concerts.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Once thats complete run your rails server and you should be set to run the app!  

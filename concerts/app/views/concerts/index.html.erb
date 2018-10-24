@@ -1,6 +1,7 @@
 <h1> Welcome, <%=@user.username%> </h1>
 <h2> You have: $<%=@user.money%> </h2>
 <h3> Your Tickets: </h3>
+
 <% if !@user.concerts.empty? %>
 <%@user.concerts.sort_by {|x| x.time}.reverse.each do |t|%>
 <div>
@@ -8,6 +9,7 @@
 <%=t.showtime%><br>
   <form method="post" action="/refund">
     <input type="hidden" name="ticket_id" value="<%=Ticket.find_by(concert_id: t.id).id%>">
+    <input type="hidden" name="user_id" value="<%= @user.id%>">
     <input type="hidden" name="authenticity_token" id="authenticity_token" value="ANYTHING">
     <input type="submit" value="Cancel">
   </form>
@@ -15,7 +17,7 @@
   <%end%>
 <%end%>
 
-hello<%= @user.inspect %>
+
 <%=link_to "Click Here To Buy Tickets", new_user_concert_path(@user)%><br><br>
 
 <%= link_to "Most Popular Concert", most_popular_path(@user)%><br><br>

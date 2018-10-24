@@ -19,24 +19,25 @@ class ConcertsController < ApplicationController
   def buy_tickets
     @user = User.find_by(params[:user_id])
     ticket = Ticket.new(user_id: params[:user_id], concert_id: params[:concert_id])
-    flash[:notice] = ticket.purchaseticket(@user)
+    flash[:notice] = ticket.purchaseticket(@user.id)
     flash[:success] = flash[:notice] if flash[:notice] == "Success"
     redirect_to user_concerts_path(@user)
   end
 
   def refund
+    @user = User.find_by(params[:user_id])
     ticket = Ticket.find(params[:ticket_id])
     concert = ticket.concert
-    user = ticket.user
+    ticket.user
       if concert.time.to_i > Time.now.to_i
-        user.money = user.money + concert.cost
-        user.save(validate: false)
+        @user.money = @user.money + concert.cost
+        @user.save(validate: false)
         ticket.delete
         flash[:success] = "Successfully Refunded."
       else
         flash[:notice] = "You cannot refund a ticket that has already expired!"
       end
-      redirect_to user_concerts_path(user)
+      redirect_to user_concerts_path(@user)
   end
 
   def most_popular

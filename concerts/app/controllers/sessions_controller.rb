@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       @user.password = SecureRandom.hex
       @user.save
       session[:user_id] = @user.id
-      redirect_to user_concerts_path(@user)
+      render 'concerts/index'
     else
       @user = User.find_by(email: params[:email])
         if @user && @user.authenticate(params[:password])
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    session.clear
     redirect_to root_path
   end
 
