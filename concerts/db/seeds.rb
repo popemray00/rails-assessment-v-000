@@ -8,3 +8,6 @@
 Concert.create(title: "Beatles", min_age: 1, time: "2019-08-31T18:17:24-03:00")
 Concert.create(title: "Drake", min_age: 21, time: "2018-08-31T18:17:24-03:00")
 Concert.create(title: "Beach Boys", min_age: 21, time: "2018-09-07T19:38:46-03:00")
+Concert.create(title: "Murray Head", min_age: 1, time: "2019-08-31T18:17:24-03:00")
+Concert.create(title: "The Wiggles", min_age: 1, time: "2018-08-31T18:17:24-03:00")
+Concert.create(title: "Elton John", min_age: 21, time: "2019-09-07T19:38:46-03:00")

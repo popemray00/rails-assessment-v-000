@@ -32,10 +32,8 @@ ActiveRecord::Schema.define(version: 2018_10_07_184848) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.integer "age"
+    t.integer "age", default: 20
     t.integer "money", default: 100
-    t.integer "uid"
-    t.string "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
