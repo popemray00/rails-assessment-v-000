@@ -16,8 +16,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :new, :create] do
     resources :concerts, only: [:show, :index, :new]
+      resources :tickets, only: [:new, :show]
   end
 
   get '/most_popular', to: 'concerts#most_popular'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
