@@ -1,33 +1,13 @@
-<h1> Welcome, <%=current_user.username%> </h1>
-<h2> You have: $<%=current_user.money%> </h2>
-<h3> Your Tickets: </h3>
+<% Concert.all.each do |f|%>
+  <div>
+  Title: <%=f.title%><br>
 
-<% if !current_user.concerts.empty? %>
-<%current_user.concerts.sort_by {|x| x.time}.reverse.each do |t|%>
-<div>
-<%=t.title%> (<%=t.age_req%>)<br>
-<%=t.showtime%><br>
-<%= link_to "Notes", new_user_ticket_path(current_user) %>
-  <form method="post" action="/refund">
-    <input type="hidden" name="ticket_id" value="<%=Ticket.find_by(concert_id: t.id).id%>">
-    <input type="hidden" name="user_id" value="<%= current_user.id%>">
-    <input type="hidden" name="authenticity_token" id="authenticity_token" value="ANYTHING">
-    <input type="submit" value="Cancel">
-  </form>
-</div><br>
+  Cost: $<%=f.cost%>
+    <form method="post" action="/purchaseticket">
+      <input type="submit" value="Purchase Ticket">
+      <input type="hidden" name="concert_id"  value="<%=f.id%>">
+      <input type="hidden" name="user_id" value="<%=current_user.id%>">
+      <input type="hidden" name="authenticity_token" id="authenticity_token" value="ANYTHING">
+    </form>
+  </div>
   <%end%>
-<%end%>
-
-
-<%=link_to "Click Here To Buy Tickets", new_user_concert_path(current_user)%><br><br>
-
-<%= link_to "Most Popular Concert", most_popular_path(current_user)%><br><br>
-
-<%= link_to "Log Out", logout_path %><br><br>
-
-<% if flash[:success] %>
-  <%= flash[:success] %></div>
-  <% elsif flash[:notice]  %>
-  <%= flash[:notice] %></div>
-<% end %>
-

@@ -1,8 +1,9 @@
 class Concert < ApplicationRecord
   has_many :tickets
   has_many :users,through: :tickets
-  accepts_nested_attributes_for :tickets
-
+ 
+  default_scope { order(created_at: :desc) }
+  scope :ordered_by_title, -> { reorder(title: :asc) }
   
 
 

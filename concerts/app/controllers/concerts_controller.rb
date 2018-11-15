@@ -1,30 +1,36 @@
 class ConcertsController < ApplicationController
    skip_before_action :verify_authenticity_token
   def index
-    if current_user
-        render :index
-      else
-        redirect_to root_path
-      end
+    @concerts = Concert.all
   end
 
-
-
-  def new
-    @user = User.find_by(params[:user_id])
-  end
 
   def show
-    @concerts = Concert.find_by(params[:concert_id])
+    
+    @concert = Concert.find_by(params[:concert_id])
+    redirect_to new_concert_ticket_path(@concert)
+    
+  end
+
+  def create
+    @concert = Concert.new(concert_params)
+
+    if @concert.save
+      params[:id] = @concert.id
+      redirect_to new_user_concert_path(@concert)
+    else
+      redirect_to user_concerts_path(@user)
+    end
   end
 
 
   def buy_tickets
     @user = User.find_by(params[:user_id])
     ticket = Ticket.new(user_id: params[:user_id], concert_id: params[:concert_id])
+    ticket.save
     flash[:notice] = ticket.purchaseticket(@user.id)
     flash[:success] = flash[:notice] if flash[:notice] == "Success"
-    redirect_to user_concerts_path(@user)
+    redirect_to user_path(@user)
   end
 
   def refund
@@ -40,11 +46,20 @@ class ConcertsController < ApplicationController
       else
         flash[:notice] = "You cannot refund a ticket that has already expired!"
       end
-      redirect_to user_concerts_path(@user)
+      redirect_to user_path(@user)
   end
 
   def most_popular
       @concert = Concert.find(Ticket.top)
     end
+
+  def order
+    @concerts = Concert.ordered_by_title
+  end
+  private
+
+  def concert_params
+    params.require(:user).permit(:title, :min_age, :cost, :time)
+  end
 
 end

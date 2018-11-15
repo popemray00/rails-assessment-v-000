@@ -1,15 +1,1 @@
-<%Concert.all.each do |f|%>
-    <div>
-    Title: <%=f.title%><br>
-    Age Requirement: <%=f.age_req%><br>
-    Time: <%=f.showtime%><br>
-    Cost: $<%=f.cost%>
-    <form method="post" action="/purchaseticket">
-      <input type="submit" value="Purchase Ticket">
-      <input type="hidden" name="concert_id"  value="<%=f.id%>">
-      <input type="hidden" name="user_id" value="<%=@user.id%>">
-      <input type="hidden" name="id" value="<%=:id%>">
-      <input type="hidden" name="authenticity_token" id="authenticity_token" value="ANYTHING">
-    </form>
-    </div>
-    <%end%>
+<h1><%= @concert.title%></h1>

@@ -7,7 +7,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.tickets.build
   end
 
   def create
@@ -15,20 +14,35 @@ class UsersController < ApplicationController
       if @user.save
         flash[:success] = "Successfully Registered!"
         session[:user_id] = @user.id
-        redirect_to user_concerts_path(@user)
+        redirect_to user_path(@user)
       else
         render :new
       end
    end
 
    def show
-     @user = set_user
+
+    @notes = @user.notes
+
+    @note = Note.new
    end
+
+   def edit
+    @user = User.find(params[:id])
+  end
+
+   def update
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :action => 'edit'
+    end
+  end
 
   private
 
   def user_params
-    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, tickets_attributes: [:notes])
+    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, :notes_attributes => [:content])
   end
 
   def set_user

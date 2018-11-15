@@ -1,14 +1,3 @@
-# README
-
-This is the concert finder app, that lets users look at concerts coming up and allows them to buy tickets.
-
-To start the app you must run 'cd concerts' then once in the directory run bundle install.
-
-After all is installed run rake db:migrate and rake db:seed this will create your tables as well as insert some concerts.
-
-Once thats complete run your rails server and you should be set to run the app!  
-
-
 MIT License
 
 Copyright (c) 2018 Michael Pope
@@ -30,6 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-Contributing
-Bug reports and pull requests are welcome on GitHub at https://github.com/'popemray00'/rails-assessment-v-000/concerts. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.

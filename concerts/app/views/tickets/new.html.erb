@@ -1,9 +1,10 @@
-<%= form_for (@ticket) do |f| %>
-    <ul>
-      <%= f.fields_for :tickets do |ticket| %>
-        Notes: <%= ticket.text_field :notes %>
-       
-    </ul>
-    <% end %>
+<%= form_for ([@concert, @ticket]) do |f| %>
+    
+    <%= f.text_area :notes %>
+
+    <%= f.hidden_field :concert_id, :value => @concert %>
+
+    <%= f.hidden_field :user_id, :value => @user %>
+   
     <%= f.submit %>
   <% end %>

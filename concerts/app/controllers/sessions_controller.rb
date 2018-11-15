@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         if @user && @user.authenticate(params[:password])
           session[:user_id] = @user.id
           flash[:message] = "You have logged in successfully!"
-          redirect_to user_concerts_path(@user)
+          redirect_to user_path(@user)
         else
           flash[:message] = "Please enter a valid email/password!"
           render :new

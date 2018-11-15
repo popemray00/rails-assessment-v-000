@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   get '/auth/:provider/callback' => 'sessions#create'
   root 'welcome#home'
 
@@ -14,15 +15,16 @@ Rails.application.routes.draw do
 
   post '/refund', to: 'concerts#refund'
 
-  post '/tickets', to: 'tickets#create'
 
-  resources :users, only: [:show, :new, :create] do
-    resources :concerts, only: [:show, :index, :new]
+  resources :users do
+    resources :notes
   end
 
   resources :users do
-    resources :tickets, only: [:new, :show, :index, :create]
+    resources :concerts
   end
 
+  get '/order', to: 'concerts#order'
+  
   get '/most_popular', to: 'concerts#most_popular'
 end
