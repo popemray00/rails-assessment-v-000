@@ -14,9 +14,14 @@ Rails.application.routes.draw do
 
   post '/refund', to: 'concerts#refund'
 
+  post '/tickets', to: 'tickets#create'
+
   resources :users, only: [:show, :new, :create] do
     resources :concerts, only: [:show, :index, :new]
-      resources :tickets, only: [:new, :show]
+  end
+
+  resources :users do
+    resources :tickets, only: [:new, :show, :index, :create]
   end
 
   get '/most_popular', to: 'concerts#most_popular'

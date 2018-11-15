@@ -1,0 +1,9 @@
+<%= form_for (@ticket) do |f| %>
+    <ul>
+      <%= f.fields_for :tickets do |ticket| %>
+        Notes: <%= ticket.text_field :notes %>
+       
+    </ul>
+    <% end %>
+    <%= f.submit %>
+  <% end %>

@@ -1,8 +1,7 @@
 class ConcertsController < ApplicationController
    skip_before_action :verify_authenticity_token
   def index
-    @user = User.find(params[:user_id])
-      if session[:user_id] = @user.id
+    if current_user
         render :index
       else
         redirect_to root_path
@@ -13,6 +12,10 @@ class ConcertsController < ApplicationController
 
   def new
     @user = User.find_by(params[:user_id])
+  end
+
+  def show
+    @concerts = Concert.find_by(params[:concert_id])
   end
 
 

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.tickets.build
   end
 
   def create
@@ -27,10 +28,10 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation)
+    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, tickets_attributes: [:notes])
   end
 
   def set_user
-    @user = User.find_by(id: params[:id])
+    @user = User.find_by(params[:user_id])
   end
 end

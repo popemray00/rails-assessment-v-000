@@ -1,6 +1,9 @@
 class Concert < ApplicationRecord
   has_many :tickets
   has_many :users,through: :tickets
+  accepts_nested_attributes_for :tickets
+
+  
 
 
 def age_req
