@@ -15,7 +15,8 @@ Rails.application.routes.draw do
 
   post '/refund', to: 'concerts#refund'
 
-
+  resources :concerts
+  
   resources :users do
     resources :notes
   end
