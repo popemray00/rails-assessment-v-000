@@ -7,8 +7,8 @@ class ConcertsController < ApplicationController
 
   def show
     
-    @concert = Concert.find_by(params[:concert_id])
-    redirect_to new_concert_ticket_path(@concert)
+    @concert = Concert.find(params[:id])
+    
     
   end
 
