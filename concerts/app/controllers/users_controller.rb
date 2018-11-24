@@ -21,10 +21,15 @@ class UsersController < ApplicationController
    end
 
    def show
-
+    
     @notes = @user.notes
-
     @note = Note.new
+
+    respond_to do |format|
+      format.html { render :show }
+
+      format.json {render json: @user}
+    end
    end
 
    def edit

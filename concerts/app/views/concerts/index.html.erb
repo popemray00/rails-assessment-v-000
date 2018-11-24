@@ -1,7 +1,7 @@
 <% @concerts.each do |f|%>
   <div>
   Title: <%=f.title%><br>
-
+  Age: <%=f.age_req%><br>
   Cost: $<%=f.cost%>
     <form method="post" action="/purchaseticket">
       <input type="submit" value="Purchase Ticket">

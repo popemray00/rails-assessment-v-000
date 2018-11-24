@@ -2,12 +2,14 @@ class ConcertsController < ApplicationController
    skip_before_action :verify_authenticity_token
   def index
     @concerts = Concert.all
+  
   end
 
 
   def show
     @concert = Concert.find(params[:id])
-    render json: @concert
+
+    render json: @concert, status: 200
     
   end
 

@@ -1,4 +1,5 @@
 <h1> Welcome, <%=@user.username%> </h1>
+<h2> Age, <%=@user.age%> </h2>
 <h2> You have: $<%=@user.money%> </h2>
 <h3> Your Tickets: </h3>
 
@@ -30,7 +31,7 @@
   <% elsif flash[:notice]  %>
   <%= flash[:notice] %></div>
 <% end %>
-
+<br>
 <%= link_to "Create Note", new_user_note_path(@user) %><br><br>
 
 <% @notes.each do |n| %>
