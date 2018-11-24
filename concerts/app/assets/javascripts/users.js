@@ -4,9 +4,11 @@ $(function(){
     $.ajax({
         method: "GET",
         url: this.href
-    }).done(function(data){
-        
-        console.log(data)
+    }).done(function(response){
+
+        console.log(response)
+
+        $("div.concerts").html(response)
     });
 
 

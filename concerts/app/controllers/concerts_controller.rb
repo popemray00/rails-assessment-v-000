@@ -4,6 +4,7 @@ class ConcertsController < ApplicationController
     @user = current_user
     @concerts = Concert.all
     @concert = @user.concerts
+    render 'concerts/index', :layout => false
   end
 
 
