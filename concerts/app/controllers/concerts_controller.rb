@@ -1,8 +1,9 @@
 class ConcertsController < ApplicationController
    skip_before_action :verify_authenticity_token
   def index
+    @user = current_user
     @concerts = Concert.all
-  
+    @concert = @user.concerts
   end
 
 
