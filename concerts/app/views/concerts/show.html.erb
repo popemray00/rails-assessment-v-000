@@ -6,7 +6,7 @@
 
 <h3>People Attending</h3>
 
-<h4 class="attending"><%=@user.username%></h4>
+<h4 class="attending"><%= @concert.users.count%></h4>
 
 
 
@@ -22,7 +22,7 @@ $(function () {
             $(".conAge").text(data["age_req"]);
             $(".conPrice").text(data["cost"]);
             $(".dateTime").text(data["time"]);
-            $(".attending").text(data["username"]);
+            $(".attending").text(data["user"]);
             $(".js-next").attr("data-id", data["id"]);
         });     
     });
