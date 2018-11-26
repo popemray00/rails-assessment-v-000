@@ -10,10 +10,11 @@ class ConcertsController < ApplicationController
 
   def show
     @concert = Concert.find(params[:id])
+    @user = User.find_by(params[:username])
 
     respond_to do |format|
       format.html {render :show}
-      format.json {render json: @concert}
+      format.json {render json: @concert.to_json(include: [users: {only: [:username]}])}
     end
   end
 
