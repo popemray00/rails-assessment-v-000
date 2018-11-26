@@ -1,1 +1,23 @@
-<h1><%= @concert.title%></h1>
+<h1 class="conName">Artist: <%= @concert.title%></h1>
+<h2 class="conAge">Age: <%= @concert.age_req%></h2>
+<h2 class="conPrice">Price: <%= @concert.cost%></h2>
+<h2 class="dateTime">Time: <%= @concert.time%></h2>
+
+<a href="#" class="js-next" data-id="<%=@concert.id%>">Next...</a>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+    $(".js-next").on("click", function(e){
+        e.preventDefault()
+        var nextId = parseInt($("js-next").attr("data-id")) + 1;
+        $.get("/concerts/" + nextId + ".json", function(data){
+            $(".conName").text(data["title"]);
+            $(".conAge").text(data["age_req"]);
+            $(".conPrice").text(data["cost"]);
+            $(".dateTime").text(data["time"]);
+            $(".js-next").attr("data-id", data["id"]);
+        });     
+    });
+});
+</script>
+

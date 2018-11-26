@@ -11,8 +11,10 @@ class ConcertsController < ApplicationController
   def show
     @concert = Concert.find(params[:id])
 
-    render json: @concert, status: 200
-    
+    respond_to do |format|
+      format.html {render :show}
+      format.json {render json: @concert}
+    end
   end
 
   def create
@@ -59,10 +61,15 @@ class ConcertsController < ApplicationController
   def order
     @concerts = Concert.ordered_by_title
   end
+
+  def concert_data
+    concert = Concert.find(params[:id])
+    render json: concert.to_json
+  end
   private
 
   def concert_params
-    params.require(:user).permit(:title, :min_age, :cost, :time)
+    params.require(:user).permit(:id, :title, :min_age, :cost, :time)
   end
 
 end

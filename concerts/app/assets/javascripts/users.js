@@ -4,7 +4,7 @@ $(function(){
     $.ajax({
         method: "GET",
         url: this.href
-    }).done(function(response){
+    }).success(function(response){
 
         console.log(response)
 
