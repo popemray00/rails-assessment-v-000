@@ -2,7 +2,8 @@
   <div>
   Title: <%=f.title%><br>
   Age: <%=f.age_req%><br>
-  Cost: $<%=f.cost%>
+  Cost: $<%=f.cost%><br>
+  Date & Time: <%=f.showtime%><br>
     <form method="post" action="/purchaseticket">
       <input type="submit" value="Purchase Ticket">
       <input type="hidden" name="concert_id"  value="<%=f.id%>">

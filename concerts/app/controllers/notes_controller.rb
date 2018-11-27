@@ -5,16 +5,18 @@ class NotesController < ApplicationController
     end
 
     def index
-        @note = Note.new 
+        @notes = @user.notes
+
+
     end
 
     def create
-        @note = @user.notes.build(note_params)
        
+        @note = @user.notes.build(note_params)
         if @note.save!
-        redirect_to @user
+        render 'notes/show', :layout => false
         else
-        render 'new'
+        render 'users/show'
         end
     end
 
@@ -25,10 +27,10 @@ class NotesController < ApplicationController
     private
 
     def note_params
-        params.require(:note).permit(:content, :user_id)
+        params.permit(:content)
     end
 
     def set_user
-        @user = User.find_by(params[:user_id])
+        @user = User.find(params[:user_id])
     end
 end
