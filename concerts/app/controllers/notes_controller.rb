@@ -6,12 +6,11 @@ class NotesController < ApplicationController
 
     def index
         @notes = @user.notes
-
+        @note = Note.new
 
     end
 
     def create
-       
         @note = @user.notes.build(note_params)
         if @note.save!
         render 'notes/show', :layout => false
@@ -31,6 +30,6 @@ class NotesController < ApplicationController
     end
 
     def set_user
-        @user = User.find(params[:user_id])
+        @user = User.find_by(params[:user_id])
     end
 end

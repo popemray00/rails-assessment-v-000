@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :set_user
+  skip_before_action :verify_authenticity_token
+
 
   def home
   end
@@ -47,7 +49,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, :notes_attributes => [:content])
+    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, :notes_attributes => [:content, :id])
   end
 
   def set_user

@@ -42,7 +42,7 @@
 </div>
 
 
-<%= form_for([@user, @note]) do |f| %>
+<%= form_for(@note) do |f| %>
   <%= f.text_area :content %>
   <p><%= f.submit %></p>
 <% end %>
