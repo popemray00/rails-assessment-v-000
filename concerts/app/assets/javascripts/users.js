@@ -1,14 +1,17 @@
+var $ol = $("div.notes ol")
+
 $(function(){
  $("a.load_concerts").on("click", function(e){
     
     $.ajax({
         method: "GET",
-        url: this.href
+        url: this.href,
+        dataType: "json"
     }).success(function(response){
 
         console.log(response)
-
-        $("div.concerts").html(response)
+        //debugger
+        load_concerts(response)
     });
 
 
@@ -16,16 +19,34 @@ $(function(){
  })
 })
 
+function load_concerts(data){
+    $("div.concerts").html(data[0].title)
+}
+
 $(function(){
-    $("form").on("submit", function(e){
+    $("#new_note").on("submit", function(e){
         e.preventDefault();
+        url = this.action
+        
+        data = {
+            'authenticity_token': $("input[name='authenticity_token']").val(),
+            'note': {
+                'content': $("#note_content").val()
+            }
+        };
 
-        var values = $(this).serialize();
-
-        var posting = $.post('/users', values);
-
-        posting.done(function(data){
-            
+        $.ajax({
+            method: "POST",
+            url: url,
+            data: data,
+            dataType: "json"
+            success: function(response){
+                debugger
+                var $ol = $("div.notes ol")
+                $ol.append(response)
+            }
         });
+
     });
 });
+

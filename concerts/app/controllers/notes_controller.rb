@@ -1,32 +1,29 @@
 class NotesController < ApplicationController
     before_action :set_user
-    def new
-        @note = Note.new
-    end
 
     def index
         @notes = @user.notes
-        @note = Note.new
-
+        respond_to do |format|
+            format.html {render 'notes/index', :layout => false}
+            format.json {render json: @notes}
+          end
     end
 
     def create
         @note = @user.notes.build(note_params)
-        if @note.save!
+        if @note.save
         render 'notes/show', :layout => false
         else
         render 'users/show'
         end
     end
 
-    def show
-        @note = @user.notes
-    end
+    
 
     private
 
     def note_params
-        params.permit(:content)
+        params.require(:note).permit(:content)
     end
 
     def set_user

@@ -37,12 +37,13 @@
 <% end %>
 <br>
 
+
 <div class="notes">
-  <%= render "notes/notes" %>
+  <%= render 'notes/notes' %>
 </div>
 
-
-<%= form_for(@note) do |f| %>
+<%= form_for([@user, @note]) do |f| %>
   <%= f.text_area :content %>
-  <p><%= f.submit %></p>
+  <%= f.submit %>
 <% end %>
+

@@ -4,7 +4,10 @@ class ConcertsController < ApplicationController
     @user = current_user
     @concerts = Concert.all
     @concert = @user.concerts
-    render 'concerts/index', :layout => false
+    respond_to do |format|
+      format.html {render 'concerts/index', :layout => false}
+      format.json {render json: @concerts.to_json(include: [users: {only: [:username]}])}
+    end
   end
 
 

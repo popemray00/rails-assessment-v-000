@@ -1,4 +1,10 @@
-<%= form_for @note do |note| %>
-    <%= note.text_area :content %>
-    <%= note.submit %>
+<div id="new_note">
+<%= form_for @note do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit, disabled="false"  %>
   <% end %>
+</div>
+
+<div class="noteResults">
+  <p id="noteContent"></p>
+</div>

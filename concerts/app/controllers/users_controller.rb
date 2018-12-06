@@ -25,10 +25,10 @@ class UsersController < ApplicationController
    def show
     
     @notes = @user.notes
-    @note = Note.new
+    @note = @user.notes.build
 
     respond_to do |format|
-      format.html { render :show }
+      format.html { render 'users/show', :layout => false }
 
       format.json {render json: @user}
     end
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, :notes_attributes => [:content, :id])
+    params.require(:user).permit(:username,:password,:email, :money, :password_confirmation, note_attributes: [:note, :id, :authenticity_token, :uft8])
   end
 
   def set_user
