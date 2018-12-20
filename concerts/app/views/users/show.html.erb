@@ -23,10 +23,9 @@
 
 <div class="concerts">
 
-</div>
+</div><br>
 
-<%= link_to "Most Popular Concert", most_popular_path(@user)%><br><br>
-
+<%= link_to "Most Popular Concert", most_popular_path(@user), :class => "most_popular"%><br><br>
 
 <%= link_to "Log Out", logout_path %><br><br>
 
@@ -37,10 +36,15 @@
 <% end %>
 <br>
 
+<h3>Notes</h3><br>
+
+<%= link_to "View All Notes", user_notes_path(@user), :class => "load_notes"%><br><br>
+
+<p>Most recent note:</p>
 
 <div class="notes">
-  <%= render 'notes/notes' %>
-</div>
+
+</div><br>
 
 <%= form_for([@user, @note]) do |f| %>
   <%= f.text_area :content %>

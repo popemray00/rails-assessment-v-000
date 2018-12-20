@@ -18,6 +18,13 @@ class NotesController < ApplicationController
         end
     end
 
+    def show
+        @notes = @user.notes
+        respond_to do |format|
+            format.html {render 'notes/show', :layout => false}
+            format.json {render json: @notes}
+          end
+    end
     
 
     private

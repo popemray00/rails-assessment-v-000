@@ -27,10 +27,6 @@ Rails.application.routes.draw do
     resources :concerts
   end
 
-  resources :concerts do
-    resources :users
-  end
-
   get '/order', to: 'concerts#order'
   
   get '/most_popular', to: 'concerts#most_popular'

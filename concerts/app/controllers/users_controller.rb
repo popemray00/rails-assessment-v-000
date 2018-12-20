@@ -23,12 +23,12 @@ class UsersController < ApplicationController
    end
 
    def show
-    
+    @concerts = Concert.all
     @notes = @user.notes
     @note = @user.notes.build
 
     respond_to do |format|
-      format.html { render 'users/show', :layout => false }
+      format.html { render :show}
 
       format.json {render json: @user}
     end

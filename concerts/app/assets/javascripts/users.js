@@ -1,4 +1,4 @@
-var $ol = $("div.notes ol")
+
 
 $(function(){
  $("a.load_concerts").on("click", function(e){
@@ -8,9 +8,6 @@ $(function(){
         url: this.href,
         dataType: "json"
     }).success(function(response){
-
-        console.log(response)
-        //debugger
         load_concerts(response)
     });
 
@@ -20,33 +17,44 @@ $(function(){
 })
 
 function load_concerts(data){
-    $("div.concerts").html(data[0].title)
+    const myArray = data;
+    const arrayLength = myArray.length;
+    for (var i = 0; i < arrayLength; i++){
+         console.log(myArray[i])
+         $("div.concerts").html(myArray[i])
+         debugger
+    }
+    $("div.concerts").html(myArray[i])
 }
 
+
+
 $(function(){
-    $("#new_note").on("submit", function(e){
+    $("#new_note").click("submit", function(e){
         e.preventDefault();
-        url = this.action
         
-        data = {
-            'authenticity_token': $("input[name='authenticity_token']").val(),
-            'note': {
-                'content': $("#note_content").val()
-            }
-        };
-
         $.ajax({
-            method: "POST",
-            url: url,
-            data: data,
-            dataType: "json"
-            success: function(response){
-                debugger
-                var $ol = $("div.notes ol")
-                $ol.append(response)
-            }
-        });
-
+            type: "POST",
+            url: this.action,
+            data: $(this).serialize(),
+            success: displayNote
+         })
     });
 });
 
+function displayNote(data) {
+    console.log(data);
+    const newNote = new Note(data);
+    const noteHTML = newNote.formatShowNote();
+    $(".notes").html(noteHTML)
+}
+
+
+function Note(data) {
+    this.content = data
+}
+
+Note.prototype.formatShowNote = function() {
+    let noteHTML = ` <p>${this.content}</p>`
+    return noteHTML;
+}
