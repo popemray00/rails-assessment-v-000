@@ -63,9 +63,7 @@ class ConcertsController < ApplicationController
       @concert = Concert.find(Ticket.top)
     end
 
-  def order
-    @concerts = Concert.ordered_by_title
-  end
+  
 
   def concert_data
     concert = Concert.find(params[:id])

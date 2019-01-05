@@ -2,30 +2,27 @@
 
 $(function(){
  $("a.load_concerts").on("click", function(e){
-    
+    e.preventDefault();
     $.ajax({
         method: "GET",
         url: this.href,
-        dataType: "json"
-    }).success(function(response){
-        load_concerts(response)
+        dataType: "json",
+        success:function(json){
+            const $ol = $("div.concerts ol")
+            $ol.html("")
+
+            json.forEach(function(f){
+                $ol.append("<li>" + f.title + "</li>");
+                $ol.append("<li>" + f.cost + "</li>");
+                $ol.append("<li>" + f.time + "</li>");
+                $ol.append("<li>" + f.min_age + "</li>");
+            });
+        }
     });
-
-
-    e.preventDefault();
+    
  })
 })
 
-function load_concerts(data){
-    const myArray = data;
-    const arrayLength = myArray.length;
-    for (var i = 0; i < arrayLength; i++){
-         console.log(myArray[i])
-         $("div.concerts").html(myArray[i])
-         debugger
-    }
-    $("div.concerts").html(myArray[i])
-}
 
 
 
