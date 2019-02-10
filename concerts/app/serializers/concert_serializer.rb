@@ -1,5 +1,4 @@
 class ConcertSerializer < ActiveModel::Serializer
-  attributes :id, :title, :min_age, :cost, :time
-  has_many :tickets
-  has_many :users,through: :tickets
+  attributes :id, :title, :min_age, :cost, :time, :next_id, :users
+  has_many :users
 end

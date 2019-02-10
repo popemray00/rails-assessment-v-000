@@ -1,4 +1,5 @@
 class ConcertsController < ApplicationController
+  before_action :set_user  
    skip_before_action :verify_authenticity_token
   def index
     @user = current_user
@@ -6,31 +7,33 @@ class ConcertsController < ApplicationController
     @concert = @user.concerts
     respond_to do |format|
       format.html {render 'concerts/index', :layout => false}
-      format.json {render json: @concerts.to_json(include: [users: {only: [:username]}])}
+      format.json {render json: @concerts}
     end
   end
 
 
   def show
     @concert = Concert.find(params[:id])
-    @user = User.find_by(params[:username])
     
 
     respond_to do |format|
-      format.html {render :show}
-      format.json {render json: @concert.to_json(include: [users: {only: [:username]}])}
+      format.html {render 'concerts/show'}
+      format.json {render json: @concert}
     end
   end
 
   def create
     @concert = Concert.new(concert_params)
-
+    respond_to do |format|
     if @concert.save
       params[:id] = @concert.id
-      redirect_to new_user_concert_path(@concert)
+      format.html {render 'concerts/show', :layout => false}
+      format.json {render json: @concert}
     else
-      redirect_to user_concerts_path(@user)
+      format.html {render 'concerts/show', :layout => false}
+      format.json {render json: @concert}
     end
+  end
   end
 
 
@@ -66,13 +69,22 @@ class ConcertsController < ApplicationController
   
 
   def concert_data
-    concert = Concert.find(params[:id])
-    render json: concert.to_json
+    @concert = Concert.find_by(params[:id])
+    @user = User.find_by(params[:id])
+    
+    respond_to do |format|
+      format.html {render 'concerts/show'}
+      format.json {render json: @concert}
+    end
   end
   private
 
   def concert_params
     params.require(:user).permit(:id, :title, :min_age, :cost, :time)
+  end
+
+  def set_user
+    @user = current_user
   end
 
 end

@@ -11,11 +11,15 @@ class NotesController < ApplicationController
 
     def create
         @note = @user.notes.build(note_params)
+        respond_to do |format|
         if @note.save
-        render 'notes/show', :layout => false
+            format.html {render 'notes/show', :layout => false}
+            format.json {render json: @note}
         else
-        render 'users/show'
+            format.html {render 'notes/show', :layout => false}
+            format.json {render json: @note}
         end
+    end
     end
 
     def show

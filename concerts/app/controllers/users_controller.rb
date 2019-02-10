@@ -9,6 +9,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
+    respond_to do |format|
+      format.html { render :new}
+
+      format.json {render json: @user}
+    end
   end
 
   def create
@@ -23,10 +29,11 @@ class UsersController < ApplicationController
    end
 
    def show
-    @concerts = Concert.all
+    @user = User.find_by(params[:id])
+    @concerts = @user.concerts
+    @concert = Concert.find_by(params[:id])
     @notes = @user.notes
     @note = @user.notes.build
-
     respond_to do |format|
       format.html { render :show}
 
@@ -53,6 +60,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(params[:user_id])
+    @user = current_user
   end
 end

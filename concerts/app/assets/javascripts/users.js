@@ -1,21 +1,18 @@
 
 
-$(function(){
- $("a.load_concerts").on("click", function(e){
+$(document).on("turbolinks:load",function(){
+ $("a.load_notes").on("click", function(e){
     e.preventDefault();
     $.ajax({
         method: "GET",
         url: this.href,
         dataType: "json",
         success:function(json){
-            const $ol = $("div.concerts ol")
+            const $ol = $("div.all_notes ol")
             $ol.html("")
 
             json.forEach(function(f){
-                $ol.append("<li>" + f.title + "</li>");
-                $ol.append("<li>" + f.cost + "</li>");
-                $ol.append("<li>" + f.time + "</li>");
-                $ol.append("<li>" + f.min_age + "</li>");
+                $ol.append("<li>" + f.content + "</li>");
             });
         }
     });
@@ -26,16 +23,19 @@ $(function(){
 
 
 
-$(function(){
-    $("#new_note").click("submit", function(e){
+$(document).on("turbolinks:load",function(){
+    $("#new_note").on("submit", function(e){
         e.preventDefault();
         
         $.ajax({
             type: "POST",
             url: this.action,
             data: $(this).serialize(),
-            success: displayNote
-         })
+            dataType: 'json'
+        }).done(function (response) {
+            displayNote(response)
+            console.log(response)
+        })
     });
 });
 
@@ -46,9 +46,10 @@ function displayNote(data) {
     $(".notes").html(noteHTML)
 }
 
-
-function Note(data) {
-    this.content = data
+class Note {
+    constructor(data) {
+        this.content = data.content
+    }
 }
 
 Note.prototype.formatShowNote = function() {

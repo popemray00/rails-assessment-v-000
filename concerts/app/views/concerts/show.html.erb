@@ -1,4 +1,6 @@
-<a href="#" class="js-next" data-id="<%=@concert.id%>">Next...</a><br>
+
+
+<a href="#" class="js-next" data-id="<%=@concert.next_id%>">Next...</a><br>
 <h1 class="conName"><%= @concert.title%></h1>
 <h2 class="conAge"><%= @concert.age_req%></h2>
 <h2 class="conPrice"><%= @concert.cost%></h2>
@@ -6,7 +8,17 @@
 
 <h3>People Attending</h3>
 
-<h4 class="attending"><%= @concert.users.count%></h4>
+<ul class="attending">
+    <% #How do I print out all the usernames of the users attending using the function below? %>
+    <% #also when I click next button the names stay on the page but it's a different concert that has no users attending so how would I clear those names if they are not attending?. %>
+    
+
+    <% @concert.users.each do |user| %>
+       <li><%= user.username%></li>
+    <% end %>
+</ul>
+
+<%= link_to "Home", user_path(current_user)%>
 
 
 
@@ -16,14 +28,17 @@
 $(function () {
     $(".js-next").on("click", function(e){
         e.preventDefault()
-        var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+        var nextId = parseInt($(".js-next").attr("data-id"));
         $.get("/concerts/" + nextId + ".json", function(data){
             $(".conName").text(data["title"]);
             $(".conAge").text(data["age_req"]);
             $(".conPrice").text(data["cost"]);
-            $(".dateTime").text(data["time"]);
-            $(".attending").text(data["user"]);
-            $(".js-next").attr("data-id", data["id"]);
+            $(".dateTime").text(data["time"]); 
+            let users = data.users;
+            for (let i = 0; i < users.length; i++) {
+                console.log(users[i]["username"])
+                $(".attending").append(users[i]['username'])};
+            $(".js-next").attr("data-id", data["next_id"]);
         });     
     });
 });

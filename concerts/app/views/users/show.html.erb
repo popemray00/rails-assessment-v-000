@@ -1,9 +1,9 @@
-<h1> Welcome, <%=@user.username%> </h1>
-<h2> Age: <%=@user.age%> </h2>
-<h2> You have: $<%=@user.money%> </h2>
+<h1> Welcome, <%=current_user.username%> </h1>
+<h2> Age: <%=current_user.age%> </h2>
+<h2> You have: $<%=current_user.money%> </h2>
 <h3> Your Tickets: </h3>
 
-<% if !@user.concerts.empty? %>
+<% if !current_user.concerts.empty? %>
 <%@user.concerts.sort_by {|x| x.time}.reverse.each do |t|%>
 <div>
 <%=t.title %> (<%=t.age_req%>)<br>
@@ -21,10 +21,7 @@
 ~~~~~~~~~~~~~~~~<br>
 <%=link_to "Click Here To Buy Tickets", user_concerts_path(@user), :class => "load_concerts"%><br><br>
 
-<div class="concerts">
-  <ol>
-    </ol>
-</div><br>
+<%= link_to "View Attending", user_concert_path(@user, @concert) %><br><br>
 
 <%= link_to "Most Popular Concert", most_popular_path(@user), :class => "most_popular"%><br><br>
 
@@ -40,6 +37,11 @@
 <h3>Notes</h3><br>
 
 <%= link_to "View All Notes", user_notes_path(@user), :class => "load_notes"%><br><br>
+
+<div class="all_notes">
+  <ol>
+  </ol>
+</div><br>
 
 <p>Most recent note:</p>
 

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   post '/refund', to: 'concerts#refund'
 
-  get 'concerts/:id/concert_data', to: 'concerts#concert_data'
+  get 'users/:id/concerts/:id/concert_data', to: 'concerts#concert_data', as: 'user_concert_data'
 
   resources :concerts
   
